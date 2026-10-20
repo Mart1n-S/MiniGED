@@ -73,4 +73,11 @@ public class Document {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Document [title=" + title + ", category=" + category + ", author=" + author + ", uploadedBy="
+                + uploadedBy + ", originalFileName=" + originalFileName + ", mimeType=" + mimeType + ", fileSize="
+                + fileSize + ", storagePath=" + storagePath + ", createdAt=" + createdAt + "]";
+    }
 }
