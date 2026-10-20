@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Document {
     private String title;
-    private String category;
+    private DocumentCategory category;
     private String author;
     private final String uploadedBy;
     private final String originalFileName;
@@ -13,7 +13,8 @@ public class Document {
     private final String storagePath;
     private final LocalDateTime createdAt;
 
-    public Document(String title, String category, String author, String uploadedBy, String originalFileName,
+    public Document(String title, 
+            DocumentCategory category, String author, String uploadedBy, String originalFileName,
             String mimeType, long fileSize, String storagePath) {
         this.title = title;
         this.category = category;
@@ -34,11 +35,11 @@ public class Document {
         this.title = title;
     }
 
-    public String getCategory() {
+    public DocumentCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(DocumentCategory category) {
         this.category = category;
     }
 
