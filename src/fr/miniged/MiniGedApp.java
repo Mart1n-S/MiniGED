@@ -1,8 +1,5 @@
 package fr.miniged;
 
-import java.util.List;
-import java.util.ArrayList;
-
 public class MiniGedApp {
     public static void main(String[] args) {
         System.out.println("MiniGED v0.1 - Gestion électronique de documents");
@@ -10,6 +7,10 @@ public class MiniGedApp {
         Document mobileInvoice = new Document("Facture internet",
                 DocumentCategory.INVOICE, "Orange", "Martin", "facture_mobile.pdf",
                 "application/pdf", 1024, "2026/10/a3f9ff8k99.pdf");
+
+        Document boxInvoice = new Document("Facture box",
+                DocumentCategory.INVOICE, "Orange", "Martin", "facture_box.pdf",
+                "application/pdf", 1024, "2026/10/u3bcff33ll.pdf");
 
         Document contract = new Document("Contrat Toto",
                 DocumentCategory.CONTRACT, "TitiEnterprise", "Martin", "contrat_toto.pdf",
@@ -24,7 +25,23 @@ public class MiniGedApp {
         documentRepository.add(mobileInvoice);
         documentRepository.add(contract);
         documentRepository.add(estimate);
+        documentRepository.add(boxInvoice);
+
+        System.out.println("Tous les documents : ");
 
         documentRepository.findAll().forEach(document -> System.out.println(document.getTitle()));
+
+        System.out.println("Toutes les Factures : ");
+
+        documentRepository.findByCategory(DocumentCategory.INVOICE)
+                .forEach(document -> System.out.println(document.getTitle()));
+
+        System.out.println("Tous les documents par auteur orange : ");
+
+        documentRepository.findByAuthor("orange").forEach(document -> System.out.println(document.getTitle()));
+
+        System.out.println("Tous les documents par auteur PaulCORPE : ");
+
+        documentRepository.findByAuthor("PaulCORPE").forEach(document -> System.out.println(document.getTitle()));
     }
 }

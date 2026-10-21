@@ -13,4 +13,28 @@ public class DocumentRepository {
     public List<Document> findAll() {
         return List.copyOf(this.documents);
     }
+
+    public List<Document> findByCategory(DocumentCategory documentCategory) {
+        List<Document> results = new ArrayList<>();
+
+        for (Document document : this.documents) {
+            if (document.getCategory() == documentCategory) {
+                results.add(document);
+            }
+        }
+
+        return results;
+    }
+
+    public List<Document> findByAuthor(String author) {
+        List<Document> results = new ArrayList<>();
+
+        for (Document document : this.documents) {
+            if (document.getAuthor().equalsIgnoreCase(author)) {
+                results.add(document);
+            }
+        }
+
+        return results;
+    }
 }

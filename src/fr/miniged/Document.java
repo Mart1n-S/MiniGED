@@ -13,7 +13,7 @@ public class Document {
     private final String storagePath;
     private final LocalDateTime createdAt;
 
-    public Document(String title, 
+    public Document(String title,
             DocumentCategory category, String author, String uploadedBy, String originalFileName,
             String mimeType, long fileSize, String storagePath) {
         this.title = title;
