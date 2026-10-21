@@ -29,6 +29,15 @@ public class MiniGedApp {
         documentRepository.add(estimate);
         documentRepository.add(boxInvoice);
 
+        try {
+            Document estimateHouse = new Document("Devis pour la maison",
+                    DocumentCategory.ESTIMATE, "PaulCORPE", "Martin", "devis_maison.pdf",
+                    "application/pdf", -10, "2026/10/07niog110a.pdf");
+            documentRepository.add(estimateHouse);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Impossible de créer le document : " + e.getMessage());
+        }
+
         printTitles("Tous les documents : ", documentRepository.findAll());
         printTitles("Toutes les factures : ", documentRepository.findByCategory(DocumentCategory.INVOICE));
         printTitles("Tous les documents par auteur orange : ", documentRepository.findByAuthor("orange"));
