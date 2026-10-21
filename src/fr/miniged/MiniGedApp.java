@@ -44,6 +44,13 @@ public class MiniGedApp {
         printTitles("Tous les documents par auteur PaulCORPE : ", documentRepository.findByAuthor("PaulCORPE"));
         printTitles("Tous les documents trouvés par mot clé 'facture' : ", documentRepository.findByTitle("facture"));
         printTitles("Tous les documents trouvés par mot clé 'TOTO' : ", documentRepository.findByTitle("TOTO"));
+
+        DocumentClassifier documentClassifier = new DocumentClassifier();
+
+        System.out.println("Classification automatique : ");
+        for (String title : List.of("Facture EDF mars 2026", "Contrat de location", "Photo de vacances")) {
+            System.out.println(title + " -> " + documentClassifier.classify(title));
+        }
     }
 
     private static void printTitles(String heading, List<Document> documents) {
