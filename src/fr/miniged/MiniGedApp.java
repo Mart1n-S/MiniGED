@@ -1,24 +1,30 @@
 package fr.miniged;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class MiniGedApp {
     public static void main(String[] args) {
         System.out.println("MiniGED v0.1 - Gestion électronique de documents");
 
-        Document factureMobile = new Document("Facture internet", 
+        Document mobileInvoice = new Document("Facture internet",
                 DocumentCategory.INVOICE, "Orange", "Martin", "facture_mobile.pdf",
                 "application/pdf", 1024, "2026/10/a3f9ff8k99.pdf");
 
-        Document contrat = new Document("Contrat Toto", 
+        Document contract = new Document("Contrat Toto",
                 DocumentCategory.CONTRACT, "TitiEnterprise", "Martin", "contrat_toto.pdf",
                 "application/pdf", 2048, "2026/10/99ertg6t7y.pdf");
 
-        System.out.println(factureMobile);
+        Document estimate = new Document("Devis paul",
+                DocumentCategory.ESTIMATE, "PaulCORPE", "Martin", "devis_paul.pdf",
+                "application/pdf", 2048, "2026/10/67aztg8t0a.pdf");
 
-        System.out.println(contrat);
+        DocumentRepository documentRepository = new DocumentRepository();
 
-        factureMobile.setTitle("Facture téléphonie mobile");
+        documentRepository.add(mobileInvoice);
+        documentRepository.add(contract);
+        documentRepository.add(estimate);
 
-        System.out.println(factureMobile);
-
+        documentRepository.findAll().forEach(document -> System.out.println(document.getTitle()));
     }
 }
