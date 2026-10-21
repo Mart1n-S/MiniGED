@@ -16,6 +16,20 @@ public class Document {
     public Document(String title,
             DocumentCategory category, String author, String uploadedBy, String originalFileName,
             String mimeType, long fileSize, String storagePath) {
+
+        requireNotBlank(title, "title");
+        requireNotBlank(author, "author");
+        requireNotBlank(uploadedBy, "uploadedBy");
+        requireNotBlank(originalFileName, "originalFileName");
+        requireNotBlank(mimeType, "mimeType");
+        requireNotBlank(storagePath, "storagePath");
+
+        requireNotNull(category, "category");
+
+        if (fileSize <= 0) {
+            throw new IllegalArgumentException("fileSize must be positive");
+        }
+
         this.title = title;
         this.category = category;
         this.author = author;
@@ -32,6 +46,7 @@ public class Document {
     }
 
     public void setTitle(String title) {
+        requireNotBlank(title, "title");
         this.title = title;
     }
 
@@ -40,6 +55,7 @@ public class Document {
     }
 
     public void setCategory(DocumentCategory category) {
+        requireNotNull(category, "category");
         this.category = category;
     }
 
@@ -48,6 +64,7 @@ public class Document {
     }
 
     public void setAuthor(String author) {
+        requireNotBlank(author, "author");
         this.author = author;
     }
 
@@ -80,5 +97,17 @@ public class Document {
         return "Document [title=" + title + ", category=" + category + ", author=" + author + ", uploadedBy="
                 + uploadedBy + ", originalFileName=" + originalFileName + ", mimeType=" + mimeType + ", fileSize="
                 + fileSize + ", storagePath=" + storagePath + ", createdAt=" + createdAt + "]";
+    }
+
+    private static void requireNotBlank(String value, String fieldName) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(fieldName + " must not be blank");
+        }
+    }
+
+    private static void requireNotNull(Object value, String fieldName) {
+        if (value == null) {
+            throw new IllegalArgumentException(fieldName + " must not be null");
+        }
     }
 }
