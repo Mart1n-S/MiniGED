@@ -15,26 +15,20 @@ public class DocumentRepository {
     }
 
     public List<Document> findByCategory(DocumentCategory documentCategory) {
-        List<Document> results = new ArrayList<>();
-
-        for (Document document : this.documents) {
-            if (document.getCategory() == documentCategory) {
-                results.add(document);
-            }
-        }
-
-        return results;
+        return this.documents.stream()
+                .filter(document -> document.getCategory() == documentCategory)
+                .toList();
     }
 
     public List<Document> findByAuthor(String author) {
-        List<Document> results = new ArrayList<>();
+        return this.documents.stream()
+                .filter(document -> document.getAuthor().equalsIgnoreCase(author))
+                .toList();
+    }
 
-        for (Document document : this.documents) {
-            if (document.getAuthor().equalsIgnoreCase(author)) {
-                results.add(document);
-            }
-        }
-
-        return results;
+    public List<Document> findByTitle(String keyword) {
+        return this.documents.stream()
+                .filter(document -> document.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
     }
 }
