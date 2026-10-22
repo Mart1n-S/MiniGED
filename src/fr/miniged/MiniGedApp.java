@@ -1,7 +1,5 @@
 package fr.miniged;
 
-import java.util.List;
-
 public class MiniGedApp {
     public static void main(String[] args) {
         System.out.println("MiniGED v0.1 - Gestion électronique de documents");
@@ -29,32 +27,9 @@ public class MiniGedApp {
         documentRepository.add(estimate);
         documentRepository.add(boxInvoice);
 
-        try {
-            Document estimateHouse = new Document("Devis pour la maison",
-                    DocumentCategory.ESTIMATE, "PaulCORPE", "Martin", "devis_maison.pdf",
-                    "application/pdf", -10, "2026/10/07niog110a.pdf");
-            documentRepository.add(estimateHouse);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Impossible de créer le document : " + e.getMessage());
-        }
-
-        printTitles("Tous les documents : ", documentRepository.findAll());
-        printTitles("Toutes les factures : ", documentRepository.findByCategory(DocumentCategory.INVOICE));
-        printTitles("Tous les documents par auteur orange : ", documentRepository.findByAuthor("orange"));
-        printTitles("Tous les documents par auteur PaulCORPE : ", documentRepository.findByAuthor("PaulCORPE"));
-        printTitles("Tous les documents trouvés par mot clé 'facture' : ", documentRepository.findByTitle("facture"));
-        printTitles("Tous les documents trouvés par mot clé 'TOTO' : ", documentRepository.findByTitle("TOTO"));
-
         DocumentClassifier documentClassifier = new DocumentClassifier();
+        ConsoleMenu consoleMenu = new ConsoleMenu(documentRepository, documentClassifier);
 
-        System.out.println("Classification automatique : ");
-        for (String title : List.of("Facture EDF mars 2026", "Contrat de location", "Photo de vacances")) {
-            System.out.println(title + " -> " + documentClassifier.classify(title));
-        }
-    }
-
-    private static void printTitles(String heading, List<Document> documents) {
-        System.out.println(heading);
-        documents.forEach(document -> System.out.println(document.getTitle()));
+        consoleMenu.run();
     }
 }
